@@ -21,8 +21,11 @@ io.on("connection", (socket) => {
 
 	socket.on("new-message", (message) => {
 		console.log(message);
+
+		//mesajı reddis e yazıyor
 		Messages.upsert({ message });
 
+		//diğer kullanıcıların alması için broadcast ediyor
 		socket.broadcast.emit("receive-message", message);
 	});
 
